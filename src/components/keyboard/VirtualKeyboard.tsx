@@ -8,8 +8,8 @@ interface VirtualKeyboardProps {
   lastPressedKey: string | null;
 }
 
-export function VirtualKeyboard({ targetKey, lastPressedKey }: VirtualKeyboardProps): JSX.Element {
-  const isError = lastPressedKey && targetKey && lastPressedKey.toLowerCase() !== targetKey.toLowerCase();
+export function VirtualKeyboard({ targetKey, lastPressedKey }: VirtualKeyboardProps): React.JSX.Element {
+  const isError = !!(lastPressedKey && targetKey && lastPressedKey.toLowerCase() !== targetKey.toLowerCase());
 
   return (
     <div className="virtual-keyboard">

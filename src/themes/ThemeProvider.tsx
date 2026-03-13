@@ -13,7 +13,7 @@ interface ThemeContextValue {
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
-export function ThemeProvider({ children }: { children: ReactNode }): JSX.Element {
+export function ThemeProvider({ children }: { children: ReactNode }): React.JSX.Element {
   const activeThemeId = useProgressStore((s) => s.activeThemeId);
   const setProgressTheme = useProgressStore((s) => s.setTheme);
   const [theme, setThemeState] = useState<Theme>(defaultTheme);

@@ -13,7 +13,7 @@ export function Button({
   size = 'medium',
   className,
   ...props
-}: ButtonProps): JSX.Element {
+}: ButtonProps): React.JSX.Element {
   return (
     <button
       className={`btn btn--${variant} btn--${size} ${className || ''}`}

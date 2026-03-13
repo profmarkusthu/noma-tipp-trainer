@@ -12,7 +12,7 @@ interface LessonSelectScreenProps {
 export function LessonSelectScreen({
   onSelectLesson,
   onBack,
-}: LessonSelectScreenProps): JSX.Element {
+}: LessonSelectScreenProps): React.JSX.Element {
   const getLessonStats = useProgressStore((s) => s.getLessonStats);
 
   const renderStars = (stars: number) => {

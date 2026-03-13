@@ -21,7 +21,7 @@ export function GameCanvas({
   isRunning,
   onGameOver,
   onLevelComplete,
-}: GameCanvasProps): JSX.Element {
+}: GameCanvasProps): React.JSX.Element {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const engineRef = useRef<GameEngine | null>(null);
   const { theme } = useTheme();

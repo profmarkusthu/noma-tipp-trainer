@@ -7,7 +7,7 @@ interface MenuScreenProps {
   onLessonsClick: () => void;
 }
 
-export function MenuScreen({ onPlayClick, onLessonsClick }: MenuScreenProps): JSX.Element {
+export function MenuScreen({ onPlayClick, onLessonsClick }: MenuScreenProps): React.JSX.Element {
   return (
     <div className="menu-screen">
       <div className="menu-content">

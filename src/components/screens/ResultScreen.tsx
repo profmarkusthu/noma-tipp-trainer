@@ -16,7 +16,7 @@ export function ResultScreen({
   lesson,
   onReplay,
   onBack,
-}: ResultScreenProps): JSX.Element {
+}: ResultScreenProps): React.JSX.Element {
   // Calculate WPM: (characters / 5) / (minutes)
   const wpm = Math.round((result.blocksCleared / 5) / (result.elapsedSeconds / 60));
 

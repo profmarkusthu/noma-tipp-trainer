@@ -19,7 +19,7 @@ export function GameScreen({
   onExit,
   onGameOver,
   onLevelComplete,
-}: GameScreenProps): JSX.Element {
+}: GameScreenProps): React.JSX.Element {
   const [isRunning, setIsRunning] = useState(true);
   const targetLetter = useGameStore((s) => s.targetLetter);
   const lastPressedKey = useGameStore((s) => s.lastPressedKey);

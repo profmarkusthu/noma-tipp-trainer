@@ -10,7 +10,7 @@ interface KeyCapProps {
   isError: boolean;
 }
 
-export function KeyCap({ keyDef, isTarget, isPressed, isError }: KeyCapProps): JSX.Element {
+export function KeyCap({ keyDef, isTarget, isPressed, isError }: KeyCapProps): React.JSX.Element {
   const fingerColor = FINGER_COLORS[keyDef.finger];
 
   const className = [
