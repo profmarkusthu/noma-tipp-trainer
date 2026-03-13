@@ -62,13 +62,29 @@ export class SpawnSystem {
     const result: string[] = [];
     let lastBaseChar = '';
     const maxRepeat = lesson.maxCharRepeat ?? 1;
+    const hasSpace = lesson.characters.includes(' ');
     const chars = lesson.characters.filter((c) => c !== ' ');
 
     for (let i = 0; i < length; i++) {
       const available = chars.filter((c) => c !== lastBaseChar);
       const char = available[Math.floor(Math.random() * available.length)];
       const repeat = maxRepeat > 1 ? Math.floor(Math.random() * maxRepeat) + 1 : 1;
-      result.push(char.repeat(repeat));
+
+      // Build block string: if space in lesson and repeat > 1,
+      // optionally insert spaces BETWEEN characters (never at start or end)
+      let block: string;
+      if (hasSpace && repeat > 1) {
+        const parts: string[] = [char];
+        for (let r = 1; r < repeat; r++) {
+          if (Math.random() < 0.4) parts.push(' ');
+          parts.push(char);
+        }
+        block = parts.join('');
+      } else {
+        block = char.repeat(repeat);
+      }
+
+      result.push(block);
       lastBaseChar = char;
     }
 
