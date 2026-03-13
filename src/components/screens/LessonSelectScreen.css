@@ -11,6 +11,12 @@
   margin-bottom: 40px;
 }
 
+.screen-header-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
 .screen-header h1 {
   margin: 0;
   font-size: 2.5rem;

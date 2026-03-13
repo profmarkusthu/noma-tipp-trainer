@@ -12,6 +12,7 @@ export const lesson01: LessonConfig = {
   ballCatchDistance: 400,
   requiredScore: 40,
   starThresholds: [15, 30, 40],
-  spawnRate: 0.5,  // Sehr langsam für Anfänger
-  blockCount: 20,
+  spawnRate: 0.5,
+  blockCount: 30,
+  maxCharRepeat: 4,  // f, ff, fff, ffff
 };

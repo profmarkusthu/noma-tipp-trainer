@@ -15,6 +15,7 @@ export interface LessonConfig {
   starThresholds: [number, number, number];
   spawnRate?: number; // blocks per second - default 0.8
   blockCount?: number; // total blocks to spawn - default 30
+  maxCharRepeat?: number; // max times a char is repeated per block (e.g. 4 → "jjjj") - default 1
 }
 
 export interface LessonProgress {

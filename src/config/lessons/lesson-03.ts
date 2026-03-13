@@ -13,5 +13,6 @@ export const lesson03: LessonConfig = {
   requiredScore: 50,
   starThresholds: [25, 45, 60],
   spawnRate: 0.6,
-  blockCount: 30,
+  blockCount: 40,
+  maxCharRepeat: 3,
 };

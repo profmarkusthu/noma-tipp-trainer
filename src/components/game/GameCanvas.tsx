@@ -168,11 +168,12 @@ function renderGame(
 
     // Draw letter (only if not destroying)
     if (!block.isDestroying) {
+      // Scale font size: smaller for longer strings
+      const fontSize = block.letter.length <= 2 ? 22 : block.letter.length <= 4 ? 18 : 14;
       ctx.fillStyle = '#000';
-      ctx.font = 'bold 24px Arial';
+      ctx.font = `bold ${fontSize}px monospace`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      // Display lowercase (case-sensitive for 10-finger training)
       ctx.fillText(
         block.letter,
         block.x + block.width / 2,

@@ -9,6 +9,8 @@ interface ProgressStore {
   setTheme: (themeId: string) => void;
   getProgress: (lessonId: string) => LessonProgress | undefined;
   getLessonStats: (lessonId: string) => { attempts: number; bestScore: number; stars: number };
+  exportToFile: () => void;
+  importFromFile: (file: File) => Promise<void>;
 }
 
 export const useProgressStore = create<ProgressStore>()(
@@ -35,6 +37,28 @@ export const useProgressStore = create<ProgressStore>()(
       setTheme: (themeId) => set({ activeThemeId: themeId }),
 
       getProgress: (lessonId) => get().completedLessons[lessonId],
+
+      exportToFile: () => {
+        const data = {
+          exportedAt: new Date().toISOString(),
+          completedLessons: get().completedLessons,
+        };
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'noma-fortschritt.json';
+        a.click();
+        URL.revokeObjectURL(url);
+      },
+
+      importFromFile: async (file: File) => {
+        const text = await file.text();
+        const data = JSON.parse(text);
+        if (data.completedLessons) {
+          set({ completedLessons: data.completedLessons });
+        }
+      },
 
       getLessonStats: (lessonId) => {
         const progress = get().completedLessons[lessonId];

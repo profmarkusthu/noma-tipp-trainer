@@ -31,13 +31,16 @@ export class SpawnSystem {
     const letter = this.characterSequence[this.sequenceIndex];
     this.sequenceIndex++;
 
+    // Dynamic block width: 18px per character + 16px padding, min 48px
+    const blockWidth = Math.max(state.config.blockWidth, letter.length * 18 + 16);
+
     const block: LetterBlock = {
       id: `block-${state.nextBlockId++}`,
       x: state.config.canvasWidth,
       y: state.config.canvasHeight - state.config.platformHeight - state.config.blockHeight,
-      width: state.config.blockWidth,
+      width: blockWidth,
       height: state.config.blockHeight,
-      velocity: { x: -1, y: 0 }, // will be set per frame
+      velocity: { x: -1, y: 0 },
       letter,
       isDestroying: false,
       destroyAnimationFrame: 0,
@@ -57,13 +60,16 @@ export class SpawnSystem {
 
   private generateCharacterSequence(lesson: LessonConfig, length: number): string[] {
     const result: string[] = [];
-    let lastChar = '';
+    let lastBaseChar = '';
+    const maxRepeat = lesson.maxCharRepeat ?? 1;
+    const chars = lesson.characters.filter((c) => c !== ' ');
 
     for (let i = 0; i < length; i++) {
-      const available = lesson.characters.filter((c) => c !== lastChar);
+      const available = chars.filter((c) => c !== lastBaseChar);
       const char = available[Math.floor(Math.random() * available.length)];
-      result.push(char);
-      lastChar = char;
+      const repeat = maxRepeat > 1 ? Math.floor(Math.random() * maxRepeat) + 1 : 1;
+      result.push(char.repeat(repeat));
+      lastBaseChar = char;
     }
 
     return result;
