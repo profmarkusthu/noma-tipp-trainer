@@ -28,7 +28,6 @@ export function MenuScreen({ onPlayClick, onLessonsClick }: MenuScreenProps): Re
           <ul>
             <li>Buchstaben-Blöcke kommen von rechts auf dich zu</li>
             <li>Drücke die richtige Taste, um den Block zu zerstören</li>
-            <li>Ein Ball verfolgt dich von links - sei schnell!</li>
             <li>Je schneller und besser, desto mehr Punkte!</li>
           </ul>
         </div>

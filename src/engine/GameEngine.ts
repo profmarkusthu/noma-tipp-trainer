@@ -156,8 +156,9 @@ export class GameEngine {
           block.isDestroying = true;
           block.destroyAnimationFrame = 0;
 
-          // Award score
-          this.state.score += 10;
+          // Award score: bonus blocks give 30 pts, stacked 20, normal 10
+          const points = block.isBonus ? 30 : block.isStacked ? 20 : 10;
+          this.state.score += points;
           this.state.blocksCleared++;
 
           // Update difficulty

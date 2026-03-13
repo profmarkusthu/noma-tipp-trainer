@@ -15,6 +15,7 @@ export function KeyCap({ keyDef, isTarget, isPressed, isError }: KeyCapProps): R
 
   const className = [
     'keycap',
+    keyDef.key === ' ' && 'keycap--space',
     isTarget && 'keycap--target',
     isPressed && 'keycap--pressed',
     isError && 'keycap--error',

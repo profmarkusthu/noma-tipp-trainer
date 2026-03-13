@@ -19,6 +19,8 @@ export interface LetterBlock extends GameEntity {
   isDestroying: boolean;
   destroyAnimationFrame: number;
   createdAt: number;
+  isBonus: boolean;   // gives extra points, has flame effect
+  isStacked: boolean; // part of a stacked pair (two blocks same x, different y)
 }
 
 export interface Player extends GameEntity {

@@ -12,10 +12,8 @@ export function useKeyboardInput({ onKeyPress, isActive }: KeyboardInputOptions)
 
       // Allow alphanumeric, punctuation, and space
       if (event.key.length === 1) {
+        if (event.key === ' ') event.preventDefault(); // Prevent page scroll on spacebar
         onKeyPress(event.key);
-      } else if (event.key === ' ') {
-        // Space key support
-        onKeyPress(' ');
       }
     },
     [onKeyPress, isActive]

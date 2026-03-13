@@ -14,7 +14,7 @@ export interface KeyDefinition {
   key: string;
   label: string;
   finger: Finger;
-  row: 0 | 1 | 2 | 3;
+  row: 0 | 1 | 2 | 3 | 4;
   offsetX?: number;
 }
 

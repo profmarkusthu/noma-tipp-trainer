@@ -69,6 +69,10 @@ export const KEYBOARD_LAYOUT: KeyDefinition[][] = [
     { key: '.', label: '.', finger: 'right-ring', row: 3 },
     { key: '-', label: '-', finger: 'right-pinky', row: 3 },
   ],
+  // Reihe 5: Leertaste
+  [
+    { key: ' ', label: 'Leertaste', finger: 'left-thumb', row: 4 },
+  ],
 ];
 
 export function getKeyDefinition(key: string): KeyDefinition | undefined {

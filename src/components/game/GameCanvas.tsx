@@ -127,58 +127,60 @@ function renderGame(
   // Draw blocks
   for (const block of snapshot.blocks) {
     if (block.isDestroying) {
-      // Block destruction animation: grow and fade
       const progress = block.destroyAnimationFrame / 10;
-      const scale = 1 + progress * 0.5; // Grows from 1 to 1.5x
-      const alpha = Math.max(0, 1 - progress); // Fades from 1 to 0
-
+      const scale = 1 + progress * 0.5;
+      const alpha = Math.max(0, 1 - progress);
       ctx.globalAlpha = alpha;
-
-      // Draw scaled block
       const centerX = block.x + block.width / 2;
       const centerY = block.y + block.height / 2;
       const scaledWidth = block.width * scale;
       const scaledHeight = block.height * scale;
-
-      ctx.fillStyle = theme.assets.colors.blockColor;
-      ctx.fillRect(
-        centerX - scaledWidth / 2,
-        centerY - scaledHeight / 2,
-        scaledWidth,
-        scaledHeight
-      );
-
-      // Border
+      ctx.fillStyle = block.isBonus ? '#FFD700' : theme.assets.colors.blockColor;
+      ctx.fillRect(centerX - scaledWidth / 2, centerY - scaledHeight / 2, scaledWidth, scaledHeight);
       ctx.strokeStyle = '#333';
       ctx.lineWidth = 2;
-      ctx.strokeRect(
-        centerX - scaledWidth / 2,
-        centerY - scaledHeight / 2,
-        scaledWidth,
-        scaledHeight
-      );
+      ctx.strokeRect(centerX - scaledWidth / 2, centerY - scaledHeight / 2, scaledWidth, scaledHeight);
     } else {
       ctx.globalAlpha = 1;
-      ctx.fillStyle = theme.assets.colors.blockColor;
+
+      // Block fill color
+      let fillColor = theme.assets.colors.blockColor;
+      if (block.letter === ' ') fillColor = '#88DDFF';
+      else if (block.isBonus) fillColor = '#FFD700';      // gold
+      else if (block.isStacked) fillColor = '#FF6B35';    // orange-red
+
+      ctx.fillStyle = fillColor;
       ctx.fillRect(block.x, block.y, block.width, block.height);
-      ctx.strokeStyle = '#333';
-      ctx.lineWidth = 2;
+
+      // Border: stacked blocks get a thicker highlight border
+      ctx.strokeStyle = block.isStacked ? '#CC2200' : '#333';
+      ctx.lineWidth = block.isStacked ? 3 : 2;
       ctx.strokeRect(block.x, block.y, block.width, block.height);
+
+      // Stacked badge "×2" in top-right corner
+      if (block.isStacked) {
+        ctx.fillStyle = '#FFFFFF';
+        ctx.font = 'bold 10px monospace';
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'top';
+        ctx.fillText('×2', block.x + block.width - 3, block.y + 2);
+      }
+
+      // Flames above bonus blocks
+      if (block.isBonus) {
+        drawFlame(ctx, block.x, block.y, block.width, snapshot.currentTime);
+      }
     }
 
-    // Draw letter (only if not destroying)
+    // Letter label
     if (!block.isDestroying) {
-      // Scale font size: smaller for longer strings
-      const fontSize = block.letter.length <= 2 ? 22 : block.letter.length <= 4 ? 18 : 14;
-      ctx.fillStyle = '#000';
+      ctx.fillStyle = block.isBonus ? '#333' : '#000';
+      const fontSize = block.letter.length <= 1 ? 22 : block.letter.length <= 4 ? 18 : 14;
       ctx.font = `bold ${fontSize}px monospace`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText(
-        block.letter,
-        block.x + block.width / 2,
-        block.y + block.height / 2
-      );
+      const displayChar = block.letter === ' ' ? '⎵' : block.letter;
+      ctx.fillText(displayChar, block.x + block.width / 2, block.y + block.height / 2);
     }
     ctx.globalAlpha = 1;
   }
@@ -287,4 +289,38 @@ function drawLevelCompleteOverlay(ctx: CanvasRenderingContext2D, config: any): v
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.fillText('LEVEL COMPLETE!', config.canvasWidth / 2, config.canvasHeight / 2);
+}
+
+function drawFlame(
+  ctx: CanvasRenderingContext2D,
+  bx: number,
+  by: number,
+  bw: number,
+  time: number
+): void {
+  const cx = bx + bw / 2;
+  const t = time * 4; // animation speed
+
+  // Three flame layers from outer (red-orange) to inner (yellow)
+  const layers = [
+    { color: 'rgba(220,40,0,0.85)',  widthFactor: 0.45, heightFactor: 1.0, phase: 0 },
+    { color: 'rgba(255,130,0,0.90)', widthFactor: 0.32, heightFactor: 0.75, phase: 1.1 },
+    { color: 'rgba(255,230,0,0.95)', widthFactor: 0.18, heightFactor: 0.50, phase: 2.3 },
+  ];
+
+  ctx.save();
+  for (const layer of layers) {
+    const hw = bw * layer.widthFactor;
+    const h  = 18 * layer.heightFactor;
+    const sway = Math.sin(t + layer.phase) * 3;
+
+    ctx.fillStyle = layer.color;
+    ctx.beginPath();
+    ctx.moveTo(cx - hw + sway, by);
+    ctx.quadraticCurveTo(cx - hw * 0.4 + sway, by - h * 0.5, cx + sway * 0.3, by - h);
+    ctx.quadraticCurveTo(cx + hw * 0.4 + sway, by - h * 0.5, cx + hw + sway, by);
+    ctx.closePath();
+    ctx.fill();
+  }
+  ctx.restore();
 }
