@@ -1,0 +1,51 @@
+.virtual-keyboard {
+  background-color: #e0e0e0;
+  padding: 16px;
+  border-radius: 8px;
+  margin-top: 16px;
+}
+
+.virtual-keyboard__keys {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.keyboard-row {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+}
+
+.keyboard-legend {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #999;
+  font-size: 0.85rem;
+}
+
+.legend-title {
+  font-weight: 600;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.legend-colors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
+  border: 1px solid #666;
+}
