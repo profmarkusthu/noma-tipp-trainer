@@ -1,6 +1,0 @@
-import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Button } from '../ui/Button';
-import './MenuScreen.css';
-export function MenuScreen({ onPlayClick, onLessonsClick }) {
-    return (_jsx("div", { className: "menu-screen", children: _jsxs("div", { className: "menu-content", children: [_jsx("h1", { className: "menu-title", children: "\uD83C\uDFAE Schreibtrainer" }), _jsx("p", { className: "menu-subtitle", children: "10-Finger Schreiben lernen - spielerisch und macht Spa\u00DF!" }), _jsxs("div", { className: "menu-buttons", children: [_jsx(Button, { onClick: onPlayClick, size: "large", children: "Spielen" }), _jsx(Button, { onClick: onLessonsClick, size: "large", variant: "secondary", children: "Lektionen" })] }), _jsxs("div", { className: "menu-info", children: [_jsx("h2", { children: "Wie geht's?" }), _jsxs("ul", { children: [_jsx("li", { children: "Buchstaben-Bl\u00F6cke kommen von rechts auf dich zu" }), _jsx("li", { children: "Dr\u00FCcke die richtige Taste, um den Block zu zerst\u00F6ren" }), _jsx("li", { children: "Ein Ball verfolgt dich von links - sei schnell!" }), _jsx("li", { children: "Je schneller und besser, desto mehr Punkte!" })] })] })] }) }));
-}
